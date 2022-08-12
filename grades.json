@@ -1,0 +1,21 @@
+{
+  "nextId": 3,
+  "alunos": [
+    {
+      "id": 1,
+      "student": "Lara Silva",
+      "subject": "01 - React",
+      "type": "Prova",
+      "value": 15,
+      "timestamp": "11/8/2022 - 9:32h."
+    },
+    {
+      "id": 2,
+      "student": "Pedro Vieira",
+      "subject": "02 - HTML e CSS",
+      "type": "Atividade",
+      "value": 15,
+      "timestamp": "11/8/2022 - 9:33h."
+    }
+  ]
+}
