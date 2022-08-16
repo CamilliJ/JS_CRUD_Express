@@ -1,5 +1,5 @@
 {
-  "nextId": 3,
+  "nextId": 5,
   "alunos": [
     {
       "id": 1,
@@ -16,6 +16,22 @@
       "type": "Atividade",
       "value": 15,
       "timestamp": "11/8/2022 - 9:33h."
+    },
+    {
+      "id": 3,
+      "student": "Pedro Vieira",
+      "subject": "02 - HTML e CSS",
+      "type": "Prova Prática",
+      "value": 16,
+      "timestamp": "15/8/2022 - 12:24h."
+    },
+    {
+      "id": 4,
+      "student": "Pedro Vieira",
+      "subject": "02 - HTML e CSS",
+      "type": "Revisão",
+      "value": 5,
+      "timestamp": "15/8/2022 - 12:24h."
     }
   ]
 }

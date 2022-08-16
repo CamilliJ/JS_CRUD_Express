@@ -2,9 +2,9 @@ export const swaggerDocument =
 {
     "swagger": "2.0",
     "info": {
-        "description": "My Bank API description",
+        "description": "My Students API description",
         "version": "1.0.0",
-        "title": "My Bank API description"
+        "title": "Students API"
     },
     "host": "localhost:3000",
     "tags": [
@@ -74,14 +74,26 @@ export const swaggerDocument =
         "Account": {
             "type": "object",
             "properties": {
-                "name": {
+                "student": {
                     "type": "string",
-                    "example": "Sandra Alves"
+                    "example": "Camilli J"
                 },
-                "balance": {
+                "subject": {
+                    "type": "string",
+                    "example": "02 - HTML e CSS"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "Prova Prática"
+                },
+                "value": {
                     "type": "integer",
-                    "example": 10580.34
-                }
+                    "example": 30
+                },
+                "timestamp": {
+                    "type": "string",
+                    "example": "11/8/2022 - 9:33h."
+                },
             }
         }
     }

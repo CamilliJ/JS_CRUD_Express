@@ -68,6 +68,19 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
+router.get("/:id/soma", async (req, res, next) => {
+    try {
+        const data = JSON.parse(await readFile(global.fileName));
+        const aluno = data.alunos.find(
+            aluno => aluno.id === parseInt(req.params.id));
+    
+        res.send("Ola");
+        logger.info("GET /alunos/:id/soma")
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.delete("/:id", async (req, res, next) => {
     try {
         const data = JSON.parse(await readFile(global.fileName));    
