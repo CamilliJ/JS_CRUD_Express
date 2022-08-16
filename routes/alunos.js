@@ -6,6 +6,8 @@ const { readFile, writeFile } = fs;
 
 const router = express.Router();
 
+
+// Endpoit para cadastrar um Aluno 
 router.post("/", async (req, res, next) => {
     try {
         let aluno = req.body;
@@ -45,6 +47,7 @@ router.post("/", async (req, res, next) => {
     }
 });
 
+// Endpoit para retornar todos os Alunos
 router.get("/", async (req, res, next) => {
     try {
         const data = JSON.parse(await readFile(global.fileName));
@@ -56,6 +59,7 @@ router.get("/", async (req, res, next) => {
     }
 });
 
+// Endpoit para retornar um Aluno específico por ID
 router.get("/:id", async (req, res, next) => {
     try {
         const data = JSON.parse(await readFile(global.fileName));
@@ -68,19 +72,61 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-router.get("/:id/soma", async (req, res, next) => {
+// Endpoint para consultar a media de um aluno em uma matéria
+router.post("/media", async(req,res,next) =>{
     try {
-        const data = JSON.parse(await readFile(global.fileName));
-        const aluno = data.alunos.find(
-            aluno => aluno.id === parseInt(req.params.id));
-    
-        res.send("Ola");
-        logger.info("GET /alunos/:id/soma")
-    } catch (err) {
-        next(err);
-    }
-});
+        let aluno = req.body;
 
+        if(!aluno.student || !aluno.subject){
+            throw new Error("Aluno e matéria são obrigatórios!");
+        }
+
+        const data = JSON.parse(await readFile(global.fileName)) 
+        var filtroAluno = data.alunos.filter( data => data.student == aluno.student)  
+        var filtroMateria = filtroAluno.filter(data => data.subject == aluno.subject) 
+
+        var notaTotal = 0; 
+        var media = 0;
+        
+        for(var i = 0; i < filtroMateria.length; i++){ 
+            notaTotal += filtroMateria[i].value
+        }
+        media = notaTotal / filtroMateria.length; 
+
+        res.send(media.toString()) 
+        console.log("POST /media: " + media + " => consultando média de aluno em uma matéria")
+    } catch (error) {
+        next(error)
+    }
+})
+
+// Endpoint para consultar a nota total de um aluno em uma matéria
+router.post("/notatotal", async(req, res, next) => { 
+    try{
+        console.log("oi")
+        let aluno = req.body 
+
+        if(!aluno.student || !aluno.subject){ 
+            throw new Error("Aluno e matéria são obrigatórios!");
+        }
+
+        const data = JSON.parse(await readFile(global.fileName)) 
+        var filtroAluno = data.alunos.filter( data => data.student == aluno.student) 
+        var filtroMateria = filtroAluno.filter(data => data.subject == aluno.subject) 
+        var notaTotal = 0; 
+
+        for(var i = 0; i < filtroMateria.length; i++){ 
+            notaTotal += filtroMateria[i].value
+        }
+
+        res.send(notaTotal.toString()) // Enviando os dados de resposta
+        console.log("POST /notaTotal: " + notaTotal + " => consultando nota total de aluno em uma matéria")
+    }catch(err){
+        next(err)
+    }
+})
+
+// Endpoit para deletar um Aluno específico por ID
 router.delete("/:id", async (req, res, next) => {
     try {
         const data = JSON.parse(await readFile(global.fileName));    
@@ -94,6 +140,8 @@ router.delete("/:id", async (req, res, next) => {
     }
 });
 
+
+// Endpoit para atualizar os dados de um Aluno específico
 router.put("/", async (req, res, next) => {
     try {
         const aluno = req.body;
